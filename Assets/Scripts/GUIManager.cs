@@ -37,9 +37,12 @@ namespace AI_OOP_GUI
         public Text forwardText, backwardText, leftText, rightText, jumpText, crouchText, interactText, sprintText;
         public Toggle fullScreen;
 
+        private Camera mainCam;
+
         // Use this for initialization
         void Start()
         {
+            mainCam.orthographic = false;
             // If there is a music file and a volume slider
             if (mainMusic != null && volumeSlider != null)
             {
@@ -342,6 +345,12 @@ namespace AI_OOP_GUI
             SceneManager.LoadScene(1);
         }
 
+        public void Exterminate()
+        {
+            PlayerPrefs.DeleteAll();
+            SceneManager.LoadScene(0);
+        }
+
         public void Exit()
         {
             Application.Quit();
@@ -446,6 +455,7 @@ namespace AI_OOP_GUI
         {
             if (pause)
             {
+                //mainCam.orthographic = true;
                 if (!showOptions)
                 {
                     Time.timeScale = 1;
@@ -465,6 +475,7 @@ namespace AI_OOP_GUI
             }
             else
             {
+                //mainCam.orthographic = false;
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;

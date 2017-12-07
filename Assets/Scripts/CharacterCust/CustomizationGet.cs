@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.SceneManagement;
 
 public class CustomizationGet : MonoBehaviour
 {
-    [Header("Character")]
+
+    //[Header("character")]
     //public variable for the skinned Mesh Renderer which is our character reference
     public Renderer character;
 
@@ -14,7 +16,7 @@ public class CustomizationGet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //Our character reference connected to the Skinned Mesh Renderer via finding the Mesh
+        //our chaeracter reference connected to the Skinneds Mesh Renderer via finding the Mesh
         //Run the function LoadTexture
         character = GameObject.Find("Mesh").GetComponent<SkinnedMeshRenderer>();
         LoadTexture();
@@ -28,6 +30,7 @@ public class CustomizationGet : MonoBehaviour
             SceneManager.LoadScene(0);
         }
         //if it does have a save file then load and setTexture Skin,Hair, Mouth and Eyes from PlayerPrefs
+
         SetTexture("Skin", PlayerPrefs.GetInt("SkinIndex"));
         SetTexture("Hair", PlayerPrefs.GetInt("HairIndex"));
         SetTexture("Mouth", PlayerPrefs.GetInt("MouthIndex"));
@@ -42,6 +45,7 @@ public class CustomizationGet : MonoBehaviour
     //the string is the name of the material we are editing, the int is the direction we are changing
 
     public void SetTexture(string type, int dir)
+
     {
         //we need variables that exist only within this function
         //these are int material index and Texture2D array of textures
@@ -95,7 +99,10 @@ public class CustomizationGet : MonoBehaviour
                 matIndex = 6;
                 //break
                 break;
+
+
         }
+
         //Material array is equal to our characters material list
         Material[] mats = character.materials;
         //our materials arrays current material index's main texture is equal to our texture arrays current index
@@ -104,4 +111,9 @@ public class CustomizationGet : MonoBehaviour
         character.materials = mats;
     }
 }
+
+	
+	
+
+
 #endregion

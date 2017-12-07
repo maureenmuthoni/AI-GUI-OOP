@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //you will need to change Scenes
 using UnityEngine.SceneManagement;
 public class CustomisationSet : MonoBehaviour
 {
+
     #region Variables
     [Header("Texture Arrays")]
     //Texture2D List for skin,hair, mouth, eyes
@@ -14,6 +16,10 @@ public class CustomisationSet : MonoBehaviour
     public List<Texture2D> eyes = new List<Texture2D>();
     public List<Texture2D> armour = new List<Texture2D>();
     public List<Texture2D> clothes = new List<Texture2D>();
+    public string classSelection;
+    public int strength, agility, intellect, wisdom, charisma, endurance;
+    public int[] values;
+    public Dropdown className;
 
     [Header("Index")]
     //index numbers for our current skin, hair, mouth, eyes textures
@@ -29,6 +35,7 @@ public class CustomisationSet : MonoBehaviour
     [Header("Character Name")]
     //name of our character that the user is making
     public string charName = "Adventurer";
+
     #endregion
 
     #region Start
@@ -40,6 +47,7 @@ public class CustomisationSet : MonoBehaviour
         for (int i = 0; i < skinMax; i++)
         {
             //creating a temp Texture2D that it grabs using Resources.Load from the Character File looking for Skin_#
+
             Texture2D temp = Resources.Load("Character/Skin_" + i.ToString()) as Texture2D;
 
             //add our temp texture that we just found to the skin List
@@ -50,8 +58,8 @@ public class CustomisationSet : MonoBehaviour
         for (int i = 0; i < hairMax; i++)
         {
             //creating a temp Texture2D that it grabs using Resources.Load from the Character File looking for Hair_#
-            Texture2D temp = Resources.Load("Character/Hair_" + i.ToString()) as Texture2D;
 
+            Texture2D temp = Resources.Load("Character/Hair_" + i.ToString()) as Texture2D;
             //add our temp texture that we just found to the hair List
             hair.Add(temp);
         }
@@ -63,10 +71,10 @@ public class CustomisationSet : MonoBehaviour
         {
             //creating a temp Texture2D that it grabs using Resources.Load from the Character File looking for Mouth_#
             Texture2D temp = Resources.Load("Character/Mouth_" + i.ToString()) as Texture2D;
-
             //add our temp texture that we just found to the mouth List
             mouth.Add(temp);
         }
+
 
         //for loop looping from 0 to less than the max amount of eyes textures we need
         for (int i = 0; i < eyesMax; i++)
@@ -104,6 +112,7 @@ public class CustomisationSet : MonoBehaviour
         SetTexture("Eyes", 0);
         SetTexture("Armour", 0);
         SetTexture("Clothes", 0);
+
 
         #endregion
     }
@@ -157,6 +166,7 @@ public class CustomisationSet : MonoBehaviour
             case "Mouth":
                 //index is the same as our skin index
                 index = mouthIndex;
+
                 //max is the same as our skin max
                 max = mouthMax;
                 //textures is our skin list .ToArray()
@@ -167,9 +177,11 @@ public class CustomisationSet : MonoBehaviour
                 break;
 
             //eyes are 4
+
             case "Eyes":
                 //index is the same as our skin index
                 index = eyesIndex;
+
                 //max is the same as our skin max
                 max = eyesMax;
                 //textures is our skin list .ToArray()
@@ -178,8 +190,6 @@ public class CustomisationSet : MonoBehaviour
                 matIndex = 4;
                 //break
                 break;
-
-            // Armour is 5
             case "Armour":
                 //index is the same as our skin index
                 index = armourIndex;
@@ -192,8 +202,6 @@ public class CustomisationSet : MonoBehaviour
                 matIndex = 5;
                 //break
                 break;
-
-            // Clothes are 6
             case "Clothes":
                 //index is the same as our skin index
                 index = clothesIndex;
@@ -208,6 +216,8 @@ public class CustomisationSet : MonoBehaviour
                 break;
         }
         #endregion
+
+
         #region Outside switch
         //outside our switch statement
         //index plus equals our direction
@@ -228,6 +238,7 @@ public class CustomisationSet : MonoBehaviour
         //our characters materials are equal to the material array
         character.materials = mat;
         //create another switch that is goverened by the same string name of our material
+
         #endregion
         #region Set Material Switch
         switch (type)
@@ -302,14 +313,14 @@ public class CustomisationSet : MonoBehaviour
         #endregion
 
         #region Skin
-        //GUI button on the left of the screen with the contents >
+        //GUI button on the left of the screen with the contence >
         if (GUI.Button(new Rect(0.25f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), "<"))
         {
-            //when pressed the button will run Set Texture and grab the material and move the texture index in the direction -1
+            //when pressed the button will run Set Texture and grab the material and move the  texture index in the direction -1
 
             SetTexture("Skin", -1);
         }
-        //GUI Box or Lable on the left of the screen with the contents Skin
+        //GUI Box or Lable on the left of the screen with the contence Skin
         GUI.Box(new Rect(0.75f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Skin");
         //GUI button on the left of the screen with the contence > 
         if (GUI.Button(new Rect(1.75f * scrW, scrH + i * (0.5f * scrH), 0.5f * scrW, 0.5f * scrH), ">"))
@@ -437,8 +448,8 @@ public class CustomisationSet : MonoBehaviour
             SetTexture("Armour", Random.Range(0, armourMax - 1));
             SetTexture("Clothes", Random.Range(0, clothesMax - 1));
         }
-
         //rest will set all to 0 both use Set Texture
+
         if (GUI.Button(new UnityEngine.Rect(1.25f * scrW, scrH + i * (0.5f * scrH), scrW, 0.5f * scrH), "Reset"))
         {
             SetTexture("Skin", skinIndex = 0);
@@ -448,10 +459,10 @@ public class CustomisationSet : MonoBehaviour
             SetTexture("Armour", armourIndex = 0);
             SetTexture("Clothes", clothesIndex = 0);
         }
-
         //move down the screen with the int using ++ each grouping of GUI elements are moved using this
         i++;
         #endregion
+
         #region Character Name and save and play
 
         //name of our character equals a GUI Textified that hold our character names and limit of characters
@@ -466,6 +477,79 @@ public class CustomisationSet : MonoBehaviour
             SceneManager.LoadScene("Game");
         }
     }
+    #endregion
+    #region Set and Get Stats
+
+    public void SetValues()
+    {
+        switch (classSelection)
+        {
+            case "Choose Class":
+                strength = 0;
+                agility = 0;
+                intellect = 0;
+                wisdom = 0;
+                charisma = 0;
+                endurance = 0;
+                break;
+
+            case "Warrior":
+                strength = 8;
+                agility = 5;
+                intellect = 2;
+                wisdom = 1;
+                charisma = 2;
+                endurance = 7;
+                break;
+
+            case "Thief":
+                strength = 2;
+                agility = 9;
+                intellect = 6;
+                wisdom = 3;
+                charisma = 4;
+                endurance = 1;
+                break;
+
+            case "Archer":
+                strength = 6;
+                agility = 7;
+                intellect = 2;
+                wisdom = 2;
+                charisma = 1;
+                endurance = 7;
+                break;
+
+            case "Wizard":
+                strength = 2;
+                agility = 2;
+                intellect = 9;
+                wisdom = 7;
+                charisma = 3;
+                endurance = 2;
+                break;
+            case "Priest":
+                strength = 3;
+                agility = 1;
+                intellect = 7;
+                wisdom = 9;
+                charisma = 3;
+                endurance = 2;
+                break;
+            case "Hunter":
+                strength = 5;
+                agility = 6;
+                intellect = 2;
+                wisdom = 3;
+                charisma = 2;
+                endurance = 7;
+                break;
+        }
+    }
+    public void GetValues()
+    {
+
+    }
+    #endregion
 }
-#endregion
 

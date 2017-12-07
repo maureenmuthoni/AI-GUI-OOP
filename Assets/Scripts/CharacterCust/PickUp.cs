@@ -44,12 +44,12 @@ public class PickUp : MonoBehaviour
                 {
                     //Debug that we hit a NPC
                     Debug.Log("Hitthe NPC");
-                    //Dialogue dlg = hitinfo.transform.GetComponent<Dialogue>();
-                    //if (dlg != null)
-                    //{
-                    //    dlg.showDlg = true;
+                    Dialogue dlg = hitinfo.transform.GetComponent<Dialogue>();
+                    if (dlg != null)
+                    {
+                        dlg.showDlg = true;
 
-                    //}
+                    }
                     #endregion
                     #region Item
                     //and that hits info is tagged Item
